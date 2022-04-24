@@ -33,7 +33,7 @@
           <v-card
               min-width="780"
           >
-            <v-card-actions class="pa-8 pt-4 pl-4">
+            <v-card-actions class="pb-7 pt-4 px-8">
               <v-tabs v-model="active_tab">
                 <v-tabs-slider color="dark"></v-tabs-slider>
                 <v-tab
@@ -46,7 +46,8 @@
                       'pa-0',
                       'mx-2',
                       {'label--text': active_tab !== index},
-                      {'dark--text': active_tab === index}
+                      {'dark--text': active_tab === index},
+                      'tab-'+index
                     ]"
                 >
                   {{ item }}
@@ -61,7 +62,7 @@
 
             </v-card-actions>
             <v-container  class="d-flex justify-center pb-16">
-              <v-col md=6 class="pb-5">
+              <v-col md=6 class="pa-0 pb-5">
 
                 <v-autocomplete
                   filled
@@ -91,7 +92,8 @@
                   <template slot="append">
                     <v-btn
                         color="label"
-                        class="white--text"
+                        class="px-0 white--text text-none max-button"
+                        small
                     >
                       Max
                     </v-btn>
@@ -108,7 +110,7 @@
                   grow
                   height="50"
                 >
-                  <span class="mr-2">Withdraw</span>
+                  <span class="mr-2 text-none font-weight-bold">Withdraw</span>
                 </v-btn>
 
               </v-col>
@@ -131,6 +133,7 @@
   }
 </script>
 <style>
+.v-application,
 .v-application .title {
   font-family: 'OpenSans', sans-serif !important;
   font-style: normal!important;
@@ -138,7 +141,15 @@
 .v-tabs-slider-wrapper {
   height: 4px!important;
 }
-.v-tab:first-of-type {
+.v-application .mx-2.tab-0 {
   margin-left: 0!important;
+}
+.v-text-field.v-text-field--solo:not(.v-text-field--solo-flat) > .v-input__control > .v-input__slot {
+  box-shadow: none !important;
+}
+
+.max-button {
+  min-width: 48px!important;
+  height: 32px!important;
 }
 </style>
