@@ -1,13 +1,25 @@
 <template>
-$END$
+  <div class="hello">
+    <v-snackbar v-model="isOpen" :vertical="true" />
+  </div>
 </template>
 
 <script>
 export default {
-name: "modal"
-}
+  name: "HelloWorld",
+  props: {
+    msg: String,
+  },
+  data() {
+    return {
+      isOpen: false,
+    };
+  },
+  methods: {
+    open() {
+      this.isOpen = !this.isOpen;
+    },
+  },
+};
 </script>
-
-<style scoped>
-
-</style>
+<style scoped></style>

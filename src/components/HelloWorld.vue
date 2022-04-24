@@ -1,58 +1,144 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
-  </div>
+  <v-container>
+    <v-row class="text-center">
+      <v-col cols="12">
+        <v-img
+          :src="require('../assets/logo.svg')"
+          class="my-3"
+          contain
+          height="200"
+        />
+      </v-col>
+
+      <v-col class="mb-4">
+        <h1 class="display-2 font-weight-bold mb-3">
+          Welcome to Vuetify
+        </h1>
+      </v-col>
+      <v-col class="col-12">
+        <v-btn
+            color="primary"
+            elevation="2"
+            large
+            @click="overlay = true"
+        >
+          <span class="mr-2">open modal</span>
+        </v-btn>
+        <v-overlay
+            :value="overlay"
+            color="gray"
+            :dark="false"
+            :opacity="1"
+        >
+          <v-card
+              min-width="780"
+          >
+            <v-card-actions class="pa-8 pt-4 pl-4">
+              <v-tabs v-model="active_tab">
+                <v-tabs-slider color="dark"></v-tabs-slider>
+                <v-tab
+                    v-for="(item, index) in list"
+                    :key="index"
+                    :class="[
+                      'text-none',
+                      'font-weight-regular',
+                      'title',
+                      'pa-0',
+                      'mx-2',
+                      {'label--text': active_tab !== index},
+                      {'dark--text': active_tab === index}
+                    ]"
+                >
+                  {{ item }}
+                </v-tab>
+              </v-tabs>
+
+              <v-icon
+                  @click="overlay=!overlay"
+              >
+                mdi-close
+              </v-icon>
+
+            </v-card-actions>
+            <v-container  class="d-flex justify-center pb-16">
+              <v-col md=6 class="pb-5">
+
+                <v-autocomplete
+                  filled
+                  solo-inverted
+                  color="border"
+                  label="Choose exchange"
+                  append-icon="mdi-chevron-down"
+                  :dark="false"
+              ></v-autocomplete>
+
+
+                <v-autocomplete
+                    filled
+                    solo-inverted
+                    color="border"
+                    label="Choose currency"
+                    append-icon="mdi-chevron-down"
+                ></v-autocomplete>
+
+
+                <v-text-field
+                    filled
+                    solo-inverted
+                    color="border"
+                    label="Withdraw amount"
+                >
+                  <template slot="append">
+                    <v-btn
+                        color="label"
+                        class="white--text"
+                    >
+                      Max
+                    </v-btn>
+                  </template>
+                </v-text-field>
+
+
+                <v-btn
+                  block
+                  color="primary"
+                  elevation="2"
+                  large
+                  @click="overlay = true"
+                  grow
+                  height="50"
+                >
+                  <span class="mr-2">Withdraw</span>
+                </v-btn>
+
+              </v-col>
+            </v-container>
+          </v-card>
+        </v-overlay>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script>
-export default {
-  name: 'HelloWorld',
-  props: {
-    msg: String
+  export default {
+    name: 'HelloWorld',
+    data: () => ({
+      overlay: false,
+      active_tab: 1,
+      list: ['Deposit', 'Withdraw', 'Rebalance']
+    }),
   }
-}
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h3 {
-  margin: 40px 0 0;
+<style>
+.v-application .title {
+  font-family: 'OpenSans', sans-serif !important;
+  font-style: normal!important;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+.v-tabs-slider-wrapper {
+  height: 4px!important;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
+.v-tab:first-of-type {
+  margin-left: 0!important;
 }
 </style>
